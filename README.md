@@ -1,6 +1,6 @@
 # NamakoBotDeploy
 
-魔改自YoshinoBot部署脚本
+魔改自[YoshinoBot部署脚本](https://github.com/LQBing/YoshinoBotDeploy)
 
 ## 关联项目
 
