@@ -1,0 +1,45 @@
+version: "3"
+volumes:
+  staticfiles: {}
+services:
+  mirai:
+    image: lqbing/cqhttp-mirai
+    restart: always
+    env_file: .env
+    volumes:
+      - ./data/device.json:/workdir/device.json
+    stdin_open: true
+    tty: true
+    networks:
+      - bot_net
+
+  bot:
+    image: haishenmao/namakobot
+    restart: always
+    env_file: .env
+    ports:
+      - 8000:8000
+    volumes:
+      - ./data/log:/workdir/log
+      - ./data/yobot_data:/workdir/hoshino/modules/yobot/yobot/src/client/yobot_data
+      - staticfiles:/workdir/hoshino/modules/yobot/yobot/src/client/public/static/
+      - ./data/res:/workdir/res
+      - ./data/conf:/root/.hoshino
+      - ./data/res/help.html:/workdir/hoshino/modules/yobot/yobot/src/client/public/template/help.html
+    networks:
+      - bot_net
+
+  nginx:
+    image: nginx
+    restart: always
+    volumes:
+      - ./data/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./data/res:/workdir/res
+      - staticfiles:/workdir/hoshino/modules/yobot/yobot/src/client/public/static/
+    networks:
+      - bot_net
+    ports:
+      - 80:80
+networks:
+  bot_net:
+    driver: bridge
