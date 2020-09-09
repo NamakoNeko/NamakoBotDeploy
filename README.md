@@ -34,7 +34,7 @@ docker pull haishenmao/namakobot
 docker pull registry.cn-hongkong.aliyuncs.com/lqbing/cqhttp-mirai
 docker pull registry.cn-hangzhou.aliyuncs.com/haishenmao/namakobot
 docker tag registry.cn-hongkong.aliyuncs.com/lqbing/cqhttp-mirai lqbing/cqhttp-mirai
-docker tag registry.cn-hangzhou.aliyuncs.com/haishenmao/namakobot lqbing/yoshino
+docker tag registry.cn-hangzhou.aliyuncs.com/haishenmao/namakobot haishenmao/namakobot
 ```
 
 ~~当前设备第一次运行可能需要输入验证码，步骤见[docker-cqhttp-mirai文档](https://github.com/LQBing/docker-cqhttp-mirai#env)~~
@@ -67,6 +67,8 @@ bot：
 - ./data/res:/workdir/res
 # hoshino的配置目录，如果不挂载出来可能导致销毁容器后hoshino的配置丢失
 - ./data/conf:/root/.hoshino
+# bot的帮助页面
+- ./data/res/help.html:/workdir/hoshino/modules/yobot/yobot/src/client/public/template/help.html
 ```
 
 nginx:
